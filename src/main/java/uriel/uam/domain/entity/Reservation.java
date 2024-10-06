@@ -2,6 +2,7 @@ package uriel.uam.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Reservation {
 
     @Id
@@ -32,6 +34,12 @@ public class Reservation {
 
     // 도착시간
     private LocalDateTime arrivalTime;
+
+    // 항공사 코드
+    private String airlineCode;
+
+    // 항공편명
+    private String flightNo;
 
     @ManyToOne
     FlightSchedule flightSchedule;

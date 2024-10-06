@@ -2,41 +2,44 @@ package uriel.uam.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class FlightSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "F_NO")
-    Integer id;
+    private Integer id;
 
     // 항공사 2코드
-    String airlineCode;
+    private String airlineCode;
 
     // 항공편명
-    String flightNo;
+    private String flightNo;
 
     // 출발지
-    String departure;
+    private String departure;
 
     // 출발 시간
-    LocalDateTime departureTime;
+    private LocalDateTime departureTime;
 
     // 도착지
-    String arrival;
+    private String arrival;
 
     // 도착 시간
-    LocalDateTime arrivalTime;
+    private LocalDateTime arrivalTime;
 
     @OneToMany(fetch = FetchType.LAZY)
-    List<Reservation> reservationList;
+    List<Reservation> reservationList = new ArrayList<>();
 }
