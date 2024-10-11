@@ -35,7 +35,7 @@ public class ReservationService {
     public ReservationResponseDto createReservationInfo(ReservationRequestDto reservationRequestDto) {
 
         // 생성 요청한 승객
-        PassengerInfo passengerInfo = passengerInfoRepository.findById(reservationRequestDto.getPassengerId()).orElseThrow(() ->
+        PassengerInfo passengerInfo = passengerInfoRepository.findByIdAndImageUrl(reservationRequestDto.getPassengerId(), reservationRequestDto.getImageUrl()).orElseThrow(() ->
                 new CustomException(ErrorCode.PASSENGER_INFO_NOT_FOUND));
 
         // 요청에 맞는 flight schedule 찾기
