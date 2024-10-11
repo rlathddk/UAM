@@ -12,6 +12,8 @@ public class ReservationRequestDto {
     // 승객 ID
     private Integer passengerId;
 
+    private String imageUrl;
+
     // 항공사 코드
     private String airlineCode;
 

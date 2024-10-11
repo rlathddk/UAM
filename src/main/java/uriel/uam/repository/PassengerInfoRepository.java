@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface PassengerInfoRepository extends JpaRepository<PassengerInfo, Integer> {
     Optional<PassengerInfo> findByImageUrl(String imageUrl);
+
+    Optional<PassengerInfo> findByIdAndImageUrl(Integer passengerId, String imageUrl);
 }

@@ -23,7 +23,7 @@ public class PassengerInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "P_NO")
+    @Column(name = "I_NO")
     private Integer id;
 
     // 승객 이름
