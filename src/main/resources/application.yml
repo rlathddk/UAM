@@ -4,8 +4,8 @@ spring:
     include: secret
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    #              ddl-auto: update
+#      ddl-auto: create-drop
+                  ddl-auto: update
     jdbc:
       batch_size=50
     properties:
