@@ -43,7 +43,7 @@ public class PassengerInfoService {
     /**
      * 승객ID로 조회
      */
-    public Optional<PassengerInfo> findByPassengerId(Integer passengerId) {
+    private Optional<PassengerInfo> findByPassengerId(Integer passengerId) {
         return passengerInfoRepository.findById(passengerId);
     }
 
@@ -52,5 +52,19 @@ public class PassengerInfoService {
      */
     public Optional<PassengerInfo> findByImageUrl(String imageUrl) {
         return passengerInfoRepository.findByImageUrl(imageUrl);
+    }
+
+    /**
+     * 승객 ID로 조회 후 반환
+     *
+     * @param id
+     * @return
+     */
+    public PassengerInfoResponseDto passengerSearch(Integer id) {
+        Optional<PassengerInfo> byPassengerId = findByPassengerId(id);
+        if (!byPassengerId.isPresent()) {
+            throw new CustomException(ErrorCode.PASSENGER_INFO_NOT_FOUND);
+        }
+        return PassengerInfoResponseDto.of(byPassengerId.get());
     }
 }

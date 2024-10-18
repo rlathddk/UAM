@@ -7,7 +7,7 @@ import lombok.Setter;
 import uriel.uam.domain.entity.FlightSchedule;
 import uriel.uam.domain.entity.PassengerInfo;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -22,13 +22,13 @@ public class ReservationResponseDto {
     private String departure;
 
     // 출발시간
-    private LocalDateTime departureTime;
+    private String departureTime;
 
     // 도착지
     private String arrival;
 
     // 도착시간
-    private LocalDateTime arrivalTime;
+    private String arrivalTime;
 
     // 항공편명
     private String flightNo;
@@ -47,9 +47,9 @@ public class ReservationResponseDto {
                 .pnr(pnr)
                 .name(passengerInfo.getName())
                 .departure(flightSchedule.getDeparture())
-                .departureTime(flightSchedule.getDepartureTime())
+                .departureTime(flightSchedule.getDepartureTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .arrival(flightSchedule.getArrival())
-                .arrivalTime(flightSchedule.getArrivalTime())
+                .arrivalTime(flightSchedule.getArrivalTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .airlineCode(flightSchedule.getAirlineCode())
                 .flightNo(flightSchedule.getFlightNo())
                 .tel(tel)

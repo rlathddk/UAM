@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import uriel.uam.domain.entity.PassengerInfo;
-import uriel.uam.domain.entity.Reservation;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,15 +26,12 @@ public class PassengerInfoResponseDto {
     // 이미지 url
     String imageUrl;
 
-    List<Reservation> reservationList;
-
     public static PassengerInfoResponseDto of(PassengerInfo passengerInfo) {
         return PassengerInfoResponseDto.builder()
                 .name(passengerInfo.getName())
                 .birthday(passengerInfo.getBirthday())
                 .tel(passengerInfo.getTel())
                 .imageUrl(passengerInfo.getImageUrl())
-                .reservationList(passengerInfo.getReservationList())
                 .build();
     }
 }
