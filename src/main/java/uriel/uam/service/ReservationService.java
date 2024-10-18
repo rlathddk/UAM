@@ -35,7 +35,7 @@ public class ReservationService {
     public ReservationResponseDto createReservationInfo(ReservationRequestDto reservationRequestDto) {
 
         // 생성 요청한 승객
-        PassengerInfo passengerInfo = passengerInfoRepository.findByIdAndImageUrl(reservationRequestDto.getPassengerId(), reservationRequestDto.getImageUrl()).orElseThrow(() ->
+        PassengerInfo passengerInfo = passengerInfoRepository.findById(reservationRequestDto.getPassengerId()).orElseThrow(() ->
                 new CustomException(ErrorCode.PASSENGER_INFO_NOT_FOUND));
 
         // 요청에 맞는 flight schedule 찾기
@@ -43,8 +43,7 @@ public class ReservationService {
         String departure = reservationRequestDto.getDeparture();
         LocalDateTime departureTime = localDateTimeFormat(reservationRequestDto.getDepartureTime());
         String arrival = reservationRequestDto.getArrival();
-        LocalDateTime arrivalTime = localDateTimeFormat(reservationRequestDto.getArrivalTime());
-        FlightSchedule flightSchedule = flightScheduleRepository.findByAirlineCodeAndDepartureAndDepartureTimeAndArrivalAndArrivalTime(airlineCode, departure, departureTime, arrival, arrivalTime)
+        FlightSchedule flightSchedule = flightScheduleRepository.findByAirlineCodeAndDepartureAndDepartureTimeAndArrival(airlineCode, departure, departureTime, arrival)
                 .orElseThrow(() -> new CustomException(ErrorCode.FLIGHT_NOT_FOUND));
 
         // pnr 생성

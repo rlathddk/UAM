@@ -1,4 +1,4 @@
-package uriel.uam.controller;
+package uriel.uam.controller.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +32,4 @@ public class ReservationController {
                         .build()
         );
     }
-
 }
