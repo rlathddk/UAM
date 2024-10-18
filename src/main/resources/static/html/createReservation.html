@@ -55,6 +55,7 @@
     <!--[END] select flight schedule -->
 </div>
 <button onclick="create()">예약 생성</button>
+<button id="btnExit">나가기</button>
 </body>
 <script>
     let airlineCode;
@@ -112,6 +113,9 @@
             }
         })
 
+        $("#btnExit").on("click", function () {
+            location.href = "/"
+        })
     }
 
     /**

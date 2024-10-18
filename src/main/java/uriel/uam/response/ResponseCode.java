@@ -22,7 +22,9 @@ public enum ResponseCode {
     FLIGHT_SEARCH_SUCCESS_FULL(HttpStatus.OK, "200", "조건에 맞는 항공편 조회 성공"),
 
     // Reservation,
-    RESERVATION_CREATE_SUCCESSFUL(HttpStatus.OK, "200", "예약 생성 성공");
+    RESERVATION_CREATE_SUCCESSFUL(HttpStatus.OK, "200", "예약 생성 성공"),
+    PASSENGER_RESERVATION_RETRIEVAL_SUCCESSFUL(HttpStatus.OK, "200", "승객 예약 리스트 조회 완료"),
+    PASSENGER_RESERVATION_DETAIL_RETRIEVAL_SUCCESSFUL(HttpStatus.OK, "200", "승객 예약 상세 조회 성공");
 
     private final HttpStatus httpStatus;
     private final String code;

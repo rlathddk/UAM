@@ -17,6 +17,9 @@ import uriel.uam.repository.ReservationRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -60,6 +63,7 @@ public class ReservationService {
                 .airlineCode(flightSchedule.getAirlineCode())
                 .flightSchedule(flightSchedule)
                 .passengerInfo(passengerInfo)
+                .tel(reservationRequestDto.getTel())
                 .build();
         reservationRepository.save(reservation);
 
@@ -98,5 +102,31 @@ public class ReservationService {
     public LocalDateTime localDateTimeFormat(String targetString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(targetString, formatter);
+    }
+
+    /**
+     * 승객의 예약 정보리스트 검색
+     */
+    public List<ReservationResponseDto> paxReservationList(Integer passengerId) {
+        PassengerInfo passengerInfo = passengerInfoRepository.findById(passengerId).orElseThrow(() -> new CustomException(ErrorCode.PASSENGER_INFO_NOT_FOUND));
+        Optional<List<Reservation>> byPassengerInfo = reservationRepository.findByPassengerInfo(passengerInfo);
+        if(!byPassengerInfo.isPresent()){
+            throw new CustomException(ErrorCode.NO_PASSENGER_RESERVATION);
+        }
+        List<ReservationResponseDto> reservationResponseDtoList = new ArrayList<>();
+        for (Reservation reservation : byPassengerInfo.get()) {
+            reservationResponseDtoList.add(ReservationResponseDto.of(reservation, passengerInfo));
+        }
+
+        return reservationResponseDtoList;
+    }
+
+    /**
+     * 승객의 특정 예약 디테일 조회
+     */
+    public ReservationResponseDto paxReservationDetail(Integer passengerId, Integer reservationId) {
+        PassengerInfo passengerInfo = passengerInfoRepository.findById(passengerId).orElseThrow(() -> new CustomException(ErrorCode.PASSENGER_INFO_NOT_FOUND));
+        Reservation reservation = reservationRepository.findByIdAndPassengerInfo(reservationId, passengerInfo).orElseThrow(() -> new CustomException(ErrorCode.NO_PASSENGER_RESERVATION));
+        return ReservationResponseDto.of(reservation, passengerInfo);
     }
 }
