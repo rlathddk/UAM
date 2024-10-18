@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import uriel.uam.domain.entity.FlightSchedule;
 import uriel.uam.domain.entity.PassengerInfo;
+import uriel.uam.domain.entity.Reservation;
 
 import java.time.format.DateTimeFormatter;
 
@@ -53,6 +54,20 @@ public class ReservationResponseDto {
                 .airlineCode(flightSchedule.getAirlineCode())
                 .flightNo(flightSchedule.getFlightNo())
                 .tel(tel)
+                .build();
+    }
+
+    public static ReservationResponseDto of(Reservation reservation, PassengerInfo passengerInfo) {
+        return ReservationResponseDto.builder()
+                .pnr(reservation.getPnr())
+                .name(passengerInfo.getName())
+                .departure(reservation.getDeparture())
+                .departureTime(reservation.getDepartureTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .arrival(reservation.getArrival())
+                .arrivalTime(reservation.getArrivalTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .airlineCode(reservation.getAirlineCode())
+                .flightNo(reservation.getFlightNo())
+                .tel(reservation.getTel())
                 .build();
     }
 }

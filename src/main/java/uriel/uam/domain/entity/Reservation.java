@@ -28,6 +28,9 @@ public class Reservation {
     // 예약번호
     private String pnr;
 
+    // 전화번호
+    private String tel;
+
     // 출발지
     private String departure;
 

@@ -13,7 +13,10 @@ public enum ErrorCode {
     FACE_SCAN_ERROR(HttpStatus.UNPROCESSABLE_ENTITY, "얼굴 인식을 실패하였습니다."),
 
     // flight
-    FLIGHT_NOT_FOUND(HttpStatus.NOT_FOUND, "조건에 맞는 항공편을 찾을 수 없습니다.");
+    FLIGHT_NOT_FOUND(HttpStatus.NOT_FOUND, "조건에 맞는 항공편을 찾을 수 없습니다."),
+
+    // reservation
+    NO_PASSENGER_RESERVATION(HttpStatus.NOT_FOUND, "승객 예약 정보가 없습니다.");
 
     private final HttpStatus status;
     private final String msg;
