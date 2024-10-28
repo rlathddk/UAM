@@ -36,7 +36,7 @@ public class FlightScheduleController {
     }
 
     @GetMapping("/{airlineCode}/departure/list")
-    public ResponseEntity<ResResult> departureList(@PathVariable String airlineCode) {
+    public ResponseEntity<ResResult> departureList(@PathVariable("airlineCode") String airlineCode) {
         List<String> departureAirportList = flightScheduleService.departureAirportList(airlineCode);
         ResponseCode responseCode = ResponseCode.DEPARTURE_AIRPORT_SEARCH_SUCCESS_FULL;
         return ResponseEntity.ok(
@@ -50,7 +50,7 @@ public class FlightScheduleController {
     }
 
     @GetMapping("/{airlineCode}/departure/{departureAirportCode}/arrival/list")
-    public ResponseEntity<ResResult> arrivalList(@PathVariable String airlineCode, @PathVariable String departureAirportCode) {
+    public ResponseEntity<ResResult> arrivalList(@PathVariable("airlineCode") String airlineCode, @PathVariable("departureAirportCode") String departureAirportCode) {
         List<String> arrivalAirportList = flightScheduleService.arrivalAirportList(airlineCode, departureAirportCode);
         ResponseCode responseCode = ResponseCode.ARRIVAL_AIRPORT_SEARCH_SUCCESS_FULL;
         return ResponseEntity.ok(
@@ -64,7 +64,7 @@ public class FlightScheduleController {
     }
 
     @GetMapping("/{airlineCode}/departure/{departureAirportCode}/arrival/{arrivalAirportCode}/list")
-    public ResponseEntity<ResResult> searchFlightList(@PathVariable String airlineCode, @PathVariable String departureAirportCode, @PathVariable String arrivalAirportCode) {
+    public ResponseEntity<ResResult> searchFlightList(@PathVariable("airlineCode") String airlineCode, @PathVariable("departureAirportCode") String departureAirportCode, @PathVariable("arrivalAirportCode") String arrivalAirportCode) {
         List<FlightSchedule> flightList = flightScheduleService.searchFlightList(airlineCode, departureAirportCode, arrivalAirportCode);
         ResponseCode responseCode = ResponseCode.FLIGHT_SEARCH_SUCCESS_FULL;
         return ResponseEntity.ok(

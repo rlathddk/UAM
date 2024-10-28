@@ -38,7 +38,7 @@ public class ReservationController {
     }
 
     @GetMapping("/passenger/{passengerId}/reservation/list")
-    public ResponseEntity<ResResult> paxReservationList(@PathVariable Integer passengerId) {
+    public ResponseEntity<ResResult> paxReservationList(@PathVariable("passengerId") Integer passengerId) {
         List<ReservationResponseDto> paxReservationList = reservationService.paxReservationList(passengerId);
         ResponseCode responseCode = ResponseCode.PASSENGER_RESERVATION_RETRIEVAL_SUCCESSFUL;
         return ResponseEntity.ok(
@@ -52,7 +52,7 @@ public class ReservationController {
     }
 
     @GetMapping("/passenger/{passengerId}/reservation/{reservationId}")
-    public ResponseEntity<ResResult> paxReservationDetail(@PathVariable Integer passengerId, @PathVariable Integer reservationId) {
+    public ResponseEntity<ResResult> paxReservationDetail(@PathVariable("passengerId") Integer passengerId, @PathVariable("reservationId") Integer reservationId) {
         ReservationResponseDto paxReservationDetail = reservationService.paxReservationDetail(passengerId, reservationId);
         ResponseCode responseCode = ResponseCode.PASSENGER_RESERVATION_DETAIL_RETRIEVAL_SUCCESSFUL;
         return ResponseEntity.ok(
