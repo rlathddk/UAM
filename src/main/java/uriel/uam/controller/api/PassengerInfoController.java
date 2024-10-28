@@ -36,7 +36,7 @@ public class PassengerInfoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResResult> passengerSearch(@PathVariable Integer id) {
+    public ResponseEntity<ResResult> passengerSearch(@PathVariable("id") Integer id) {
         PassengerInfoResponseDto passengerInfoResponseDto = passengerInfoService.passengerSearch(id);
         ResponseCode responseCode = ResponseCode.PASSENGER_INFO_GET_SUCCESSFUL;
         return ResponseEntity.ok(
