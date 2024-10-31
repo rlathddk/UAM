@@ -6,14 +6,54 @@
     <title>Title</title>
 </head>
 <body>
-<div>
-    <button id="btnCreateReservation">예약</button>
-    <button id="btnReservationSearch">예약 조회</button>
+<div style="width: 960px; height: 466px; background-image: url(../images/indexImg3.jpg); background-repeat: no-repeat; background-size: contain; border-radius: 10px;">
+    <div class="reservationBtn">
+        <button id="btnCreateReservation" style="background-image: url(../images/reservationIcon1.png); background-size: 17%;">예약</button>
+        <button id="btnReservationSearch" style="background-image: url(../images/reservationIcon2.png); background-size: 22%; background-position-y : 112px">예약 조회</button>
+    </div>  
 </div>
 </body>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+    }
+    .reservationBtn{
+        text-align: center;
+        padding-top: 140px;
+    }
+    .reservationBtn button {
+        font-size: 22px;
+        width: 195px;
+        height: 170px;
+        padding: 20px;
+        background-color: #fff;
+        border: none;
+        margin: 0 10px;
+        font-weight: bold;
+        border-radius: 20px;
+        background-repeat: no-repeat;
+        background-position-x: 150px;
+        background-position-y: 120px;
+        box-shadow: 2px 2px 12px blanchedalmond;
+        transition-duration: 0.5s;
+        cursor: pointer;
+    }
+    .reservationBtn button:hover {
+       background-position-y: 110px ;
+       
+    }
+    .reservationBtn button:nth-child(2):hover {
+       background-position-y: 100px !important;
+       
+    }
+</style>
 </html>
 <script>
     $("#btnCreateReservation").on("click", function () {
         location.href = "/reservation"
+    })
+    $("#btnReservationSearch").on("click", function () {
+        location.href = "/reservationList"
     })
 </script>

@@ -6,9 +6,137 @@
     <title>Title</title>
 </head>
 <body>
-    <div>
-        <div style="border: 1px black solid; width: 400px; height: 200px">
+    <div class="form">
+        <!--[START] passenger Info data-->
+        <input type="text" hidden="hidden" id="txtPassengerId">
+        <label for="txtPassengerLastName">LastName</label>
+        <input type="text" id="txtPassengerLastName">
+        <label for="txtPassengerFirstName">FirstName</label>
+        <input type="text" id="txtPassengerFirstName">
+        <label for="txtPassengerDOB">DateOfBirth</label>
+        <input type="text" placeholder="2024-01-01" id="txtPassengerDOB">
+        <label for="txtPassengerTel">tel</label>
+        <input type="text" placeholder="ex ) 000-0000-0000" id="txtPassengerTel">
+        <!--[END] passenger Info data -->
+        <div class="reservationList">   
+
+        </div>
+        <div class="btnBox">
+            <button id="btnExit">나가기</button>
         </div>
     </div>
+
 </body>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+    }
+    .form {
+        padding: 11px;
+        width: 823px;
+        border:1px solid black;
+    }
+    input {
+        padding: 11px;
+    }
+    .btnBox{
+        text-align: center;
+    }
+    .btnBox button {
+        width: 200px;
+        padding: 20px;
+        background-color: #ece2de;
+        border: none;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+    .btmLine {
+        border-bottom: 1px solid red;
+    }
+    label {
+        display: inline-block;
+        padding: 11px;
+        width: 130px;
+    }
+    .infoBox input {
+        width: 500px;
+        border-style: none;
+        border-bottom: 1px solid black;
+        display: block;
+    }
+    .reservationList {
+        margin-bottom: 20px;
+    }
+    .infoList {
+        box-shadow: 1px 1px 6px 0px darkgray;
+        padding: 15px 40px;
+    }
+    .infoList li{
+        list-style: square;
+    }
+</style>
+<script>
+    faceScan()
+     /**
+     * 얼굴 스캔
+     */
+     async function faceScan() {
+        $.get("/face-scan", function (scanResult) {
+            console.log("id = ", scanResult.data);
+
+            $.get("/passenger/" + scanResult.data, function (passengerResult) {
+
+                $("#txtPassengerId").val(scanResult.data);
+
+                let fullName = passengerResult.data.name;
+                let name = fullName.split(".");
+                $("#txtPassengerLastName").val(name[0]);
+                $("#txtPassengerFirstName").val(name[1]);
+
+                $("#txtPassengerDOB").val(passengerResult.data.birthday);
+                $("#txtPassengerTel").val(passengerResult.data.tel);
+
+            }).fail(function (searchError) {
+                console.error("searchError: " + searchError.responseJSON.message);
+                alert(searchError.responseJSON.message);
+            });
+
+            // 예약정보
+            view(scanResult.data);
+        });
+    }
+    
+    /**
+     * 승객예약조회
+     */
+     function view(passengerId) {
+        const requestUrl = `/reservation/passenger/${passengerId}/reservation/list`;
+        $.get(requestUrl, function (reservationList) {
+            console.log(reservationList)
+            let reservationListElement = document.querySelector(".reservationList");
+            let reservationListHTML ="";
+            reservationList.data.forEach(list =>{
+                reservationListHTML += `
+                        <ul class="infoList">
+                            <li>${list.airlineCode}</li>
+                            <li>${list.arrival}</li>
+                            <li>${list.departure}</li>
+                            <li>${list.departureTime}</li>
+                        </ul>
+                        `;
+            })
+            reservationListElement.innerHTML= reservationListHTML;
+        }).fail(function (searchError) {
+        console.error("searchError: " + searchError.responseJSON.message);
+        alert(searchError.responseJSON.message);
+        });
+    }
+    /**
+     * 나가기
+     */
+     $("#btnExit").on("click", function () {
+        location.href = "/"
+    })
+</script>
 </html>

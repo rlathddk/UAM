@@ -17,4 +17,9 @@ public class UamController {
     public String createReservation(){
         return "html/createReservation.html";
     }
+
+    @GetMapping("/reservationList")
+    public String ReservationList(){
+        return "html/reservationList.html";
+    }
 }

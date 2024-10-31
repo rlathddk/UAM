@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class ReservationRequestDto {
+public class  ReservationRequestDto {
 
     // 승객 ID
     private Integer passengerId;
