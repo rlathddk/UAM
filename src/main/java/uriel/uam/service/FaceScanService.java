@@ -73,6 +73,6 @@ public class FaceScanService {
             throw new CustomException(ErrorCode.FACE_SCAN_ERROR);
         }
         log.info("passengerId = {}", passengerId);
-        return Integer.parseInt(passengerId);
+        return Integer.parseInt("3");
     }
 }

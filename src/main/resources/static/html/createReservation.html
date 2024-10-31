@@ -6,57 +6,118 @@
     <script type="text/javascript" src="../vendors/jquery/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<div>
-    <!--[START] passenger Info data-->
-    <input type="text" hidden="hidden" id="txtPassengerId">
-    <label for="txtPassengerLastName">LastName</label>
-    <input type="text" id="txtPassengerLastName">
-    <label for="txtPassengerFirstName">FirstName</label>
-    <input type="text" id="txtPassengerFirstName">
-    <label for="txtPassengerDOB">DateOfBirth</label>
-    <input type="text" placeholder="2024-01-01" id="txtPassengerDOB">
-    <label for="txtPassengerTel">tel</label>
-    <input type="text" placeholder="ex ) 000-0000-0000" id="txtPassengerTel">
-    <!--[END] passenger Info data -->
-    <!--[START] select flight schedule -->
-    <br>
-    <br>
-    <br>
-    <label for="selAirlineCode">Airline</label>
-    <select id="selAirlineCode">
-        <option>select airline</option>
-    </select>
-    <br>
-    <br>
-    <br>
-    <label for="selDepartureAirport">DepartureAirport</label>
-    <select type="text" value="INCHON" id="selDepartureAirport">
-        <option>select departure airport</option>
-    </select>
-    <label for="selArrivalAirport">ArrivalAirport</label>
-    <select type="text" id="selArrivalAirport">
-        <option>select arrival airport</option>
-    </select>
-    <br>
-    <br>
-    <br>
-    <label for="selDepartureDate">DepartureDate</label>
-    <select type="text" id="selDepartureDate">
-        <option>select departure date</option>
-    </select>
-    <br>
-    <br>
-    <br>
+<div class="form" style="background-color: #fff; opacity: 2;">
+    <div class="innerForm">
+        <!--[START] passenger Info data-->
+        <div class="infoBox">
+            <h3>기본정보</h3>
+            <div hidden="hidden" id="txtPassengerId"></div>
 
-    <label for="selDepartureTime">DepartureTime</label>
-    <select type="text" id="selDepartureTime">
-        <option>select departure time</option>
-    </select>
-    <!--[END] select flight schedule -->
+            <label for="txtPassengerLastName">LastName</label>
+            <input type="text" id="txtPassengerLastName" class="btmLine"></input>
+            <label for="txtPassengerFirstName">FirstName</label>
+            <input type="text" id="txtPassengerFirstName" class="btmLine"></input>
+            <label for="txtPassengerDOB">DateOfBirth</label>
+            <input type="text" placeholder="2024-01-01" id="txtPassengerDOB" class="btmLine"></input>
+            <label for="txtPassengerTel">tel</label>
+            <input type="text" placeholder="ex ) 000-0000-0000" id="txtPassengerTel" class="btmLine"></input>
+        </div>
+        <!--[END] passenger Info data -->
+        <!--[START] select flight schedule -->
+        <div class="createForm">
+            <h3>예약하기</h3>
+            <div>
+                <label for="selAirlineCode">Airline</label>
+                <select id="selAirlineCode">
+                    <option>select airline</option>
+                </select>
+            </div>
+            <div>
+                <label for="selDepartureAirport">DepartureAirport</label>
+                <select type="text" value="INCHON" id="selDepartureAirport">
+                    <option>select departure airport</option>
+                </select>
+            </div>
+            <div>
+                <label for="selArrivalAirport">ArrivalAirport</label>
+                <select type="text" id="selArrivalAirport">
+                    <option>select arrival airport</option>
+                </select>
+            </div>
+            <div>
+                <label for="selDepartureDate">DepartureDate</label>
+                <select type="text" id="selDepartureDate">
+                    <option>select departure date</option>
+                </select>
+            </div>
+            <div>
+                <label for="selDepartureTime">DepartureTime</label>
+                <select type="text" id="selDepartureTime">
+                    <option>select departure time</option>
+                </select>
+            </div>
+        </div>
+        <!--[END] select flight schedule -->
+        <div class="btnBox">
+            <button onclick="create()">예약 생성</button>
+            <button id="btnExit">나가기</button>
+        </div>
+    </div>
 </div>
-<button onclick="create()">예약 생성</button>
-<button id="btnExit">나가기</button>
 </body>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+    }
+    .form {
+        display: flex;
+        justify-content: center;
+        padding: 11px;
+        width: 823px;
+        border:1px solid black;
+    }
+    input {
+        padding: 11px;
+    }
+    select {
+        padding: 11px;
+        width: 300px;
+        display: inline-block;
+    }
+    h3 {
+        text-align: center;
+    }
+    label {
+        display: inline-block;
+        padding: 11px;
+        width: 130px;
+    }
+    .btnBox{
+        text-align: center;
+        padding-top: 20px;
+    }
+    .btnBox button {
+        width: 200px;
+        padding: 20px;
+        background-color: #ece2de;
+        border: none;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+    .btmLine {
+        border-bottom: 1px solid red;
+    }
+    .infoBox input {
+        width: 500px;
+        border-style: none;
+        border-bottom: 1px solid black;
+        display: block;
+    }
+    .createForm {
+        margin-top: 50px;
+    }
+</style>
 <script>
     let airlineCode;
     let departureAirport;
@@ -142,9 +203,6 @@
                 alert(searchError.responseJSON.message);
             });
 
-        }).fail(function (scanError) {
-            console.error("scanError: " + scanError.responseJSON.message);
-            alert(scanError.responseJSON.message);
         });
     }
 
@@ -313,5 +371,11 @@
             }
         });
     }
+    /**
+     * 나가기
+     */
+    $("#btnExit").on("click", function () {
+        location.href = "/"
+    })
 </script>
 </html>
